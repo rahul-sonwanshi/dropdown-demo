@@ -1,0 +1,32 @@
+<mat-form-field
+    [floatLabel]="'never'">
+    <mat-select
+        #matSelect 
+        id="matSelect" 
+        [multiple]="multiselect"
+        [formControl]="selectMultiSearch"
+        panelClass="app-panel-class" 
+        (focus)="inputFocus()"
+        (blur)="onBlur($event.target.value)"
+        (openedChange)="openedChange($event)"
+        (selectionChange)="selectionChange($event)"
+        disableOptionCentering>
+        <input matInput  *ngIf="searchable" class="mat-select-search-inner" [formControl]="searchInput" id="search-input" placeholder="Search" type="text">
+        <div *ngIf="multiselect" style="height: 40px;">
+            <mat-checkbox id="toggleSelectAll" color="primary" [formControl]="selectAllChkBox" (click)="toggleAllSelection()"></mat-checkbox>
+        </div>
+        <div class="custom-scroll-bar" style="height: 190px; overflow-y:scroll;">
+            <mat-option *ngFor="let color of filteredSearch" [value]="color">
+                {{ color }}
+            </mat-option>
+        </div>
+        <div id="wrapper" *ngIf="multiselect">
+            <button mat-button id="clearBtn" (click)="clearSelection()">
+                Clear
+            </button>
+            <button id="submitBtn" mat-button color="accent" (click)="matSelect.toggle()">
+                Submit
+            </button>
+        </div>
+    </mat-select> 
+</mat-form-field>
